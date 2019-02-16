@@ -3,9 +3,10 @@ FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /opt/services/djangoapp/src
 
-COPY Pipfile Pipfile.lock /opt/services/djangoapp/src/
+COPY requirements.txt Pipfile Pipfile.lock /opt/services/djangoapp/src/
 WORKDIR /opt/services/djangoapp/src
 RUN pip install pipenv && pipenv install --system
+RUN pip install -r requirements.txt
 
 COPY . /opt/services/djangoapp/src
 RUN cd hello && python manage.py collectstatic --no-input
